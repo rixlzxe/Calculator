@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --neon-cyan: #00f3ff;
+    --neon-pink: #ff00ff;
+    --neon-purple: #bf00ff;
+    --neon-green: #00ff88;
+    --neon-orange: #ff6b35;
+    --dark-bg: #0a0a0f;
+    --panel-bg: #12121a;
+    --screen-bg: #0d1117;
+    --text-primary: #e0e0e0;
+    --text-dim: #6b7280;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--dark-bg);
+    font-family: 'Rajdhani', sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Animated ambient background */
+.ambient-glow {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(0, 243, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(255, 0, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(191, 0, 255, 0.04) 0%, transparent 60%);
+    animation: ambientRotate 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes ambientRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.calculator-container {
+    position: relative;
+    z-index: 1;
+    background: var(--panel-bg);
+    border-radius: 24px;
+    padding: 24px;
+    width: 420px;
+    box-shadow: 
+        0 0 40px rgba(0, 243, 255, 0.1),
+        0 0 80px rgba(191, 0, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.brand {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--neon-cyan);
+    text-align: center;
+    margin-bottom: 16px;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.brand span {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.version {
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    margin-left: 8px;
+    letter-spacing: 2px;
+}
+
+/* Screen Section */
+.screen-section {
+    background: var(--screen-bg);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    border: 1px solid rgba(0, 243, 255, 0.15);
+    box-shadow: 
+        inset 0 2px 10px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 243, 255, 0.05);
+}
+
+.memory-indicator {
+    position: absolute;
+    top: 10px;
+    left: 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    color: var(--neon-green);
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+}
+
+.memory-indicator.active {
+    opacity: 1;
+}
+
+.history-display {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-align: right;
+    min-height: 24px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.main-display {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--neon-cyan);
+    text-align: right;
+    min-height: 50px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+    letter-spacing: 2px;
+}
+
+.angle-mode {
+    position: absolute;
+    bottom: 10px;
+    left: 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    color: var(--neon-orange);
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
+/* Keypad Grid */
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 14px 8px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.4s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:active {
+    transform: scale(0.92);
+}
+
+/* Number Buttons */
+.num-btn {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 243, 255, 0.1);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.num-btn:hover {
+    background: linear-gradient(145deg, #1e1e3a, #1a2548);
+    border-color: rgba(0, 243, 255, 0.3);
+    box-shadow: 
+        0 4px 12px rgba(0, 243, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: var(--neon-cyan);
+}
+
+.zero-btn {
+    grid-column: span 1;
+}
+
+/* Scientific Buttons */
+.sci-btn {
+    background: linear-gradient(145deg, #2d1b4e, #1a0f2e);
+    color: var(--neon-purple);
+    border: 1px solid rgba(191, 0, 255, 0.2);
+    font-size: 0.95rem;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.sci-btn:hover {
+    background: linear-gradient(145deg, #3d2568, #2a1840);
+    border-color: rgba(191, 0, 255, 0.5);
+    box-shadow: 
+        0 4px 15px rgba(191, 0, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: #d580ff;
+}
+
+/* Function Buttons */
+.func-btn {
+    background: linear-gradient(145deg, #1e1e1e, #151515);
+    color: var(--neon-orange);
+    border: 1px solid rgba(255, 107, 53, 0.15);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.func-btn:hover {
+    background: linear-gradient(145deg, #252525, #1a1a1a);
+    border-color: rgba(255, 107, 53, 0.4);
+    box-shadow: 
+        0 4px 12px rgba(255, 107, 53, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    color: #ff9f70;
+}
+
+/* Equals Button */
+.equals-btn {
+    background: linear-gradient(145deg, #00c853, #009624);
+    color: white;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    font-size: 1.4rem;
+    box-shadow: 
+        0 4px 15px rgba(0, 255, 136, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.equals-btn:hover {
+    background: linear-gradient(145deg, #00e676, #00c853);
+    box-shadow: 
+        0 4px 25px rgba(0, 255, 136, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .calculator-container {
+        width: 95vw;
+        padding: 16px;
+    }
+    
+    button {
+        padding: 12px 4px;
+        font-size: 1rem;
+    }
+    
+    .main-display {
+        font-size: 1.8rem;
+    }
+    
+    .sci-btn {
+        font-size: 0.85rem;
+    }
+}

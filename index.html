@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Scientific Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    
+    <div class="calculator-container">
+        <div class="brand">NEON<span>CALC</span> <span class="version">v2.0</span></div>
+        
+        <div class="screen-section">
+            <div class="memory-indicator" id="memoryIndicator">M</div>
+            <div class="history-display" id="history"></div>
+            <div class="main-display" id="display">0</div>
+            <div class="angle-mode" id="angleMode">DEG</div>
+        </div>
+
+        <div class="keypad">
+            <!-- Row 1: Scientific functions -->
+            <button class="sci-btn" onclick="toggleAngleMode()">DEG/RAD</button>
+            <button class="sci-btn" onclick="insertFunction('sin')">sin</button>
+            <button class="sci-btn" onclick="insertFunction('cos')">cos</button>
+            <button class="sci-btn" onclick="insertFunction('tan')">tan</button>
+            <button class="sci-btn" onclick="insertFunction('log')">log</button>
+
+            <!-- Row 2: More scientific -->
+            <button class="sci-btn" onclick="insertFunction('ln')">ln</button>
+            <button class="sci-btn" onclick="insertFunction('sqrt')">√</button>
+            <button class="sci-btn" onclick="insertFunction('cbrt')">∛</button>
+            <button class="sci-btn" onclick="insertOperator('^')">xʸ</button>
+            <button class="sci-btn" onclick="calculateFactorial()">x!</button>
+
+            <!-- Row 3: Constants & memory -->
+            <button class="sci-btn" onclick="insertConstant('pi')">π</button>
+            <button class="sci-btn" onclick="insertConstant('e')">e</button>
+            <button class="func-btn" onclick="memoryClear()">MC</button>
+            <button class="func-btn" onclick="memoryRecall()">MR</button>
+            <button class="func-btn" onclick="memoryAdd()">M+</button>
+
+            <!-- Row 4: Clear & parens -->
+            <button class="func-btn" onclick="memorySubtract()">M−</button>
+            <button class="func-btn" onclick="clearAll()">AC</button>
+            <button class="func-btn" onclick="clearEntry()">CE</button>
+            <button class="func-btn" onclick="deleteLast()">⌫</button>
+            <button class="func-btn" onclick="insertOperator('/')">÷</button>
+
+            <!-- Row 5: Numbers & ops -->
+            <button class="num-btn" onclick="appendNumber('7')">7</button>
+            <button class="num-btn" onclick="appendNumber('8')">8</button>
+            <button class="num-btn" onclick="appendNumber('9')">9</button>
+            <button class="func-btn" onclick="insertParenthesis('(')">(</button>
+            <button class="func-btn" onclick="insertParenthesis(')')">)</button>
+
+            <!-- Row 6 -->
+            <button class="num-btn" onclick="appendNumber('4')">4</button>
+            <button class="num-btn" onclick="appendNumber('5')">5</button>
+            <button class="num-btn" onclick="appendNumber('6')">6</button>
+            <button class="func-btn" onclick="insertOperator('*')">×</button>
+            <button class="func-btn" onclick="insertOperator('-')">−</button>
+
+            <!-- Row 7 -->
+            <button class="num-btn" onclick="appendNumber('1')">1</button>
+            <button class="num-btn" onclick="appendNumber('2')">2</button>
+            <button class="num-btn" onclick="appendNumber('3')">3</button>
+            <button class="func-btn" onclick="insertOperator('+')">+</button>
+            <button class="func-btn" onclick="toggleSign()">+/−</button>
+
+            <!-- Row 8 -->
+            <button class="num-btn zero-btn" onclick="appendNumber('0')">0</button>
+            <button class="num-btn" onclick="appendDecimal()">.</button>
+            <button class="func-btn" onclick="insertFunction('abs')">|x|</button>
+            <button class="func-btn" onclick="insertFunction('1/')">¹⁄ₓ</button>
+            <button class="equals-btn" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
