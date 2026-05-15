@@ -17,6 +17,9 @@
     --screen-bg: #0d1117;
     --text-primary: #e0e0e0;
     --text-dim: #6b7280;
+
+    /* Color shift variables for animation */
+    --hue-shift: 0;
 }
 
 body {
@@ -37,18 +40,131 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: 
+    background:
         radial-gradient(circle at 30% 30%, rgba(0, 243, 255, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 70% 70%, rgba(255, 0, 255, 0.06) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(191, 0, 255, 0.04) 0%, transparent 60%);
-    animation: ambientRotate 20s linear infinite;
+    animation:
+        ambientRotate 20s linear infinite,
+        hueShiftBackground 8s ease-in-out infinite;
     pointer-events: none;
     z-index: 0;
+}
+
+@keyframes hueShiftBackground {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
 }
 
 @keyframes ambientRotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes colorShift {
+    0% { --hue-shift: 0; }
+    25% { --hue-shift: 90; }
+    50% { --hue-shift: 180; }
+    75% { --hue-shift: 270; }
+    100% { --hue-shift: 360; }
+}
+
+/* Animated elements with color shift */
+:root {
+    animation: colorShift 8s ease-in-out infinite;
+}
+
+/* Apply hue shift to neon colors */
+:root {
+    --neon-cyan-animated: hsl(calc((180 + var(--hue-shift)) % 360), 100%, 60%);
+    --neon-pink-animated: hsl(calc((300 + var(--hue-shift)) % 360), 100%, 60%);
+    --neon-purple-animated: hsl(calc((270 + var(--hue-shift)) % 360), 100%, 60%);
+    --neon-green-animated: hsl(calc((150 + var(--hue-shift)) % 360), 100%, 60%);
+    --neon-orange-animated: hsl(calc((25 + var(--hue-shift)) % 360), 100%, 60%);
+}
+
+/* Update elements to use animated colors */
+.brand {
+    color: var(--neon-cyan-animated);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.brand span {
+    color: var(--neon-pink-animated);
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.memory-indicator {
+    color: var(--neon-green-animated);
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+}
+
+.main-display {
+    color: var(--neon-cyan-animated);
+    text-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+}
+
+.angle-mode {
+    color: var(--neon-orange-animated);
+    text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
+.sci-btn {
+    color: var(--neon-purple-animated);
+}
+
+.sci-btn:hover {
+    color: #d580ff;
+}
+
+.func-btn {
+    color: var(--neon-orange-animated);
+}
+
+.func-btn:hover {
+    color: #ff9f70;
+}
+
+/* Add pulsing glow to container */
+.calculator-container {
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 40px rgba(0, 243, 255, 0.1),
+            0 0 80px rgba(191, 0, 255, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    50% {
+        box-shadow:
+            0 0 60px rgba(0, 243, 255, 0.2),
+            0 0 120px rgba(191, 0, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Add subtle screen pulsation */
+.screen-section {
+    animation: screenPulse 4s ease-in-out infinite;
+}
+
+@keyframes screenPulse {
+    0%, 100% {
+        box-shadow:
+            inset 0 2px 10px rgba(0, 0, 0, 0.5),
+            0 0 20px rgba(0, 243, 255, 0.05);
+    }
+    50% {
+        box-shadow:
+            inset 0 2px 15px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba(0, 243, 255, 0.1);
+    }
 }
 
 .calculator-container {
